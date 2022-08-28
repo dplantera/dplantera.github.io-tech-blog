@@ -21,5 +21,6 @@
       "engineering blog"
     ]
   },
+  "baseUrl": "https://dplantera.github.io/techblog",
   "cname": "dplantera.github.io/techblog/"
 }
