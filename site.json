@@ -8,6 +8,9 @@
   "social": {
     "github": "dplantera"
   },
+  "newsletter": {
+    "showTwitterBanner": true
+  },
   "seo": {
     "title": "danplan Tech-Blog",
     "description": "Blog of a Software Engineer",
