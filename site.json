@@ -1,0 +1,21 @@
+{
+  "title": "danplan Tech-Blog",
+  "subtitle": "Practical views on day to day software development tools and processes",
+  "owner": {
+    "name": "dplantera",
+    "email": ""
+  },
+  "social": {
+    "github": "dplantera"
+  },
+  "seo": {
+    "title": "danplan Tech-Blog",
+    "description": "Blog of a Software Engineer",
+    "author": "dplantera",
+    "keywords": [
+      "blog",
+      "developer blog",
+      "engineering blog"
+    ]
+  }
+}
