@@ -4,4 +4,4 @@ My personal blog created using:
  
 
 # Blog:
-[dplan tech-blog](https://dplantera.github.io/techblog)
+[danplan techblog](https://dplantera.github.io/techblog)
