@@ -1,6 +1,6 @@
 ---
 title: Recommended Readings of September 2022
-date: 2022-08-28
+date: 2022-09-02
 permalink: blog/2022/09/02/2209-recommended-readings.md/
 ---
 

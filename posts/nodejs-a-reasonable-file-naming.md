@@ -7,29 +7,28 @@ permalink: blog/2022/08/28/nodejs-a-reasonable-file-naming/
 One might say that naming a variable can be the hardest thing in programming. But what about the function, file or
 folder where the variable lives in? This post will tell you to apply the same naming schema for files and folders and
 provides you with reasons why you should do it.
-
-# A Reasonable File Naming For Your NodeJs Project
-
+___
 ## TL;DR
 
-```
+```text
 1) Use always the same naming convention for files and folders (I prefer kebab case because I like kebab)
 2) Use index.ts / index.js to declare a folder as a module
 ```
 
-### Example: Do!
+### Do!
+| Before Refactoring                                  | After Refactoring                                                                                                   |               Change                |
+|:----------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|:-----------------------------------:|
+| some-module-to-refactor.ts                          | <span style="color:green">some-module-to-refactor</span>: <ul><li>index.ts</li><li>important-functions.ts</li></ul> |                 yes                 |
+| import { Util } from './some-module-to-refactor.ts' | import { Util } from './<span style="color:green">some-module-to-refactor</span>.ts'                                | <span style="color:green">no</span> |
 
-| Before Refactoring                                  | After Refactoring                                                                        | Change |
-|:----------------------------------------------------|:-----------------------------------------------------------------------------------------|:------:|
-| `some-module-to-refactor`.ts                        | `some-module-to-refactor`: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul> |  yes   |
-| import { Util } from './some-module-to-refactor.ts' | import { Util } from './some-module-to-refactor.ts'                                      |  `no`  |
+### Don't Do!
 
-### Example: Don't Do!
+| Before Refactoring                               | After Refactoring                                                                                                     |              Change               |
+|:-------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------|:---------------------------------:|
+| someModuleToRefactor                             | <span style="color:red">some-module-to-refactor</span>: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul> |                yes                |
+| import { Util } from './someModuleToRefactor.ts' | import { Util } from './<span style="color:red">some-module-to-refactor</span>.ts'                                    | <span style="color:red">no</span> |
 
-| Before Refactoring                               | After Refactoring                                                                      | Change |
-|:-------------------------------------------------|:---------------------------------------------------------------------------------------|:------:|
-| someModuleToRefactor.ts                          | some-module-to-refactor: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul> |  yes   |
-| import { Util } from './someModuleToRefactor.ts' | import { Util } from './some-module-to-refactor.ts'                                    | `yes`  |
+___
 
 ## Introduction
 
@@ -111,8 +110,7 @@ feature
 development takes longer because the evolution of business-needs/requirements exceeded the evolution of the code base.
 The latter includes wasting too much time on maintenance/bugfixes etc.
 
-Hence, we need to lower the barrier for refactorings during feature development. There must be a barrier because
-otherwise we always would have perfect maintained code, wouldn't we?.
+Hence, we need to lower the barrier for refactorings during feature development.
 
 #### Be nice; A lot of changes in a PR increases the fear of missing something important
 
@@ -153,10 +151,10 @@ convention will not stop us in generating value - Let us just name modules not f
 
 ---
 
-[^1] You may want to look up why e.g. the placement of the braces is also not only a matter of taste or
+[^1]: You may want to look up why e.g. the placement of the braces is also not only a matter of taste or
 style [Dangerous implications of Allman style in JavaScript](https://splunktool.com/dangerous-implications-of-allman-style-in-javascript)
 
-[^2] Refactoring includes for me renaming stuff, splitting up stuff, reimplementing stuff, deleting stuff.... actually
+[^2]: Refactoring includes for me renaming stuff, splitting up stuff, reimplementing stuff, deleting stuff.... actually
 touching anything that was there before except those changes directly related to the new feature.
 
-[^3] PR means Pull-Request (I apologize if the context was not clear enough)
+[^3]: PR means Pull-Request (I apologize if the context was not clear enough)
