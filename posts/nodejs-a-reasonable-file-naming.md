@@ -1,21 +1,22 @@
 ---
 title: A Reasonable File Naming For Your NodeJs Project
-date: 2022-08-28
+date: 2022-09-18
 permalink: blog/2022/08/28/nodejs-a-reasonable-file-naming/
 ---
 
-One might say that naming a variable can be the hardest thing in programming. But what about the function, file or
-folder where the variable lives in? This post will tell you to apply the same naming schema for files and folders and
-provides you with reasons why you should do it.
+One might say that naming a variable can be the hardest thing in programming. But what about the file or
+folder where the variable lives in? This post will meet us halfway by providing reasons why we should have the same
+naming schema for files and folders.
 ___
+
 ## TL;DR
 
-```text
-1) Use always the same naming convention for files and folders (I prefer kebab case because I like kebab)
-2) Use index.ts / index.js to declare a folder as a module
-```
+> 1) Use always the same naming convention for files and folders. I prefer kebab case because I like kebab, but you may
+     use whatever you see fit
+> 2) If we refactor a file to a folder while keeping the same name, we induce no additional changes (technical reason)
 
 ### Do!
+
 | Before Refactoring                                  | After Refactoring                                                                                                   |               Change                |
 |:----------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------|:-----------------------------------:|
 | some-module-to-refactor.ts                          | <span style="color:green">some-module-to-refactor</span>: <ul><li>index.ts</li><li>important-functions.ts</li></ul> |                 yes                 |
@@ -33,128 +34,115 @@ ___
 ## Introduction
 
 As a programmer we often rely on naming conventions because as long as it works for everyone we are safe to proceed.
-That is totally fine for me if the convention works in a sense it won't make me any troubles now or any
-time in the future during development, refactoring or debugging[^1].
+That is totally fine if the convention works in a sense it won't make any troubles now or any
+time in the future during development, refactoring or debugging. Hence, a convention must not have a negative impact
+from a practical or technical perspective like readability (practical) or in Vanilla JS e.g. the placement of braces (
+technical) [^1].
 
-Working with NodeJs or typescript I can not say there is any single commonly accepted and reasonable way for naming
-stuff. There are a lot and most of the conventions I came across have different schemas for naming files and folders.
-Since this is a blog I do not go into the hassle for listening and referencing my sources. But I will provide you a
-reasonable convention for naming files and folders in NodeJs. If you, dear reader, disagree with any of the presented
-conventions
-you most certainly disagree with my reasoning. That is totally fine, and I love having a discussion based on hard
-reasons why we should do it differently.
+I've worked about four years with NodeJs projects and wondered often if there is a technical reason in how
+we name files and folders. Until now, I can not say there actually is any single commonly accepted way for
+naming stuff in NodeJs projects. There are a lot and most of them relate to practical reasons like "filename will
+express...something"  e.g. "whether there is a class or a function in a file exported". Yet, I haven't found any
+technical reason why we should apply a particular naming convention on files or folders.[^2]
 
-## Motivation
-
-I've spent quite a while the past four years looking for a reasonable way to name files and folders within node projects
-I've encountered.
-Coming from e.g. Java 8 you most certainly have learned how to name files and packages because the compiler would yell
-to you if you would not comply.
-
-In NodeJs there is no compiler that would tell you to write your file names like you named your classes. Maybe there are
-linter for that, but you need to know the rule to enable it only for someone else to turn it off because he or she has a
-different taste.
+Coming from e.g. Java 8 you most certainly have learned that you need to name a file like you've named your class inside
+the file because the compiler would yell to you otherwise.
+In NodeJs there is no compiler that enforces naming conventions. Maybe there are linter for that, but you need to know
+the rule and enable it only for someone else to turn it off because he or she has a different taste.
 
 My point is, I do not want to discuss taste or style, I want to discuss how to avoid issues, enhancing
-DX or productivity for everyone by a naming convention.
+DX or productivity for everyone by providing a naming convention through technical reasoning.[^3]
 
 ## Name Modules not Files or Folders
 
-The title of this section already tells you we should name modules not files or folders. In the following I will
-elaborate what I mean by naming modules and why this should be considered as a good reason. Yet, I let the naming schema
-which you should apply open to your taste.
+The title of this section already tells us we should name modules not files or folders. I'm convinced that if we start
+naming modules instead of files or folders then we will take a step towards a natural naming convention and style.
+
+In the following I will elaborate what I mean by naming modules and why this should be considered as a good reason. Yet,
+I let the naming schema which you should apply open to your taste, for now.
 
 ### Reason 1: Modules are Files and Folders
 
 In NodeJs every file which exports something is considered a module. Every folder which may contain an index.js (
-index.ts) is also considered a module.
-This means a module may be a file or a folder. Since a file and a folder can be the same thing why should we apply
-different naming conventions?
+index.ts) is also considered a module. This means a module may be a file or a folder.
 
-If this argument is not enough for you, allow me to provide more compelling reason for me.
+Since a file and a folder can be the same thing why should we apply different naming conventions?
 
 ### Reason 2: We do not think in Files or Folders
 
 I keep this reason short because there are so many streams and terminologies for designing and architecture a service
-that I don't want to touch with this simple topic of naming conventions.
+that I don't want to touch with this simple topic of naming conventions. This is something we easily can test for our
+self.
 
-This is something we easily can test for our self. If we model or explain how our software system is build, do we would
-use the terms
-files or folders? Are we importing from files in NodeJs?
+If we model or explain how our software system is build, do we would use the terms files or folders? Are we importing
+from files in NodeJs?
 
 ### Reason 3: Lower Barries for Refactoring
 
 When treating a file and a folder as a module, and they have the same naming pattern, then we can make a folder from a
-file without changing any references to that file. Hence, we are able to refactor a file (module) into a folder (module)
-to maybe split up concerns and see better what is going on. We also could make it a file again if we like to reduce
-complexity and e.g. refactor stuff out into another module.
+file without changing any references to that file.
+Hence, we are able to refactor a file (module) into a folder (module) without inducing any other change in the project.
 
-If you are interested in why I think this is important then please feel invited to keep reading. But be aware, I do not
-have any short answer at the moment.
+[The absence of additional changes lowers the barrier for refactoring and enables us in return to increase the quality
+of a module and with it of the system.](#Technical and practical impact of different naming conventions for files and folders)
 
-#### No additional changes when refactoring is more than a nice to have
+## Impact of different naming conventions for files and folders
 
-At the first glance having the same name pattern for files and folders could be considered a nice to have, because if
-we ___need___ to refactor from a file to a folder we
-don't care about re-referencing to a folder.
+Reason 3 stated that naming files and folders the same way, will lower barriers for refactoring by reducing the amount
+of induced additional change. Let us define additional change as any change which would be a side
+effect of the actively applied change like updating file references.
+However, it does not state why additional change can become such an issue that we would avoid a refactoring.
 
-There are not many reasons why someone would ask you to check out a project and start working on it. I can certainly
-say that the number of times someone wants you to refactor something for the sake of readability or decreasing
-complexity is quite low up to non-existent.
+We have certainly come across a file which is large enough where we can't see anymore what actually happens, but not
+large enough, anyone would have an issue if we extend it with another function. Be honest, we both would just put the
+function in the file. And it makes sense in a first iteration to do so, the question is what happens next? Would we
+refactor it? What would hold us from it?
 
-#### Refactorings must be kept small and cheap, so we can do it while developing features
+There are *barriers for refactoring* and one of it is *additional change*. If we change a filename then in some cases we
+change the whole project because of updated file references some refactoring tool applied for us. Most certainly we
+would work on a feature or bug when we think of refactoring. If we induce changes across the project which are totally
+unrelated to the thing we are actually doing, we consciously or unconsciously tend not to go through with the
+refactoring. Of course this would not matter if a refactoring would become necessary to implement or fix something but
+maybe raise some reflections why this become necessary.
 
-Maybe I am biased but in an enterprise environment most people care about features (companies like to see value only in
-features). The only reason most of the stakeholder would accept a "only-refactoring-task" is if a feature needs it or
-feature
-development takes longer because the evolution of business-needs/requirements exceeded the evolution of the code base.
-The latter includes wasting too much time on maintenance/bugfixes etc.
+Yet, refactoring is one of the most important tasks in programming and general speaking in writing. There is no
+masterpiece text when an author writes it down the first time. A masterpiece text is developed mostly by
+multiple people. Thus, refactoring enables us to achieve masterpieces or at least better and reliable software.
 
-Hence, we need to lower the barrier for refactorings during feature development.
+But refactoring is a skill which is, thanks to our tools, cheap and easy to apply but really hard to master. What is
+hard to learn is to know when it will be necessary, when it will bring as value or the hardest thing ever: when to stop.
+We can not force achieving mastery in refactoring, but we can and should eliminate every barrier which will prevent us
+from refactoring. Anything preventing us from refactoring would prevent us from writing better software.
 
-#### Be nice; A lot of changes in a PR increases the fear of missing something important
+Modularize and split up concerns in a folder to see better what is going on in a file is a refactoring worth to proceed.
+This enables us e.g. to refactor out concerns in another module and reduce complexity which again enables us to see
+better what's going, refactor out and so on and so forth.
 
-If the code base allows us to make changes without changing too much anything else with it, then we are able to
-refactor[^2] side by side with a feature. Changes are problematic because with each change the
-level of fear something will break increases, exponentially for me. I certainly would ___not___ risk ___unnecessarily___
-that a PR[^3] becomes too big because of a lot of renaming noise. It would be too easy to miss something important if
-there are more feature unrelated changes in a single PR.
-
-I try to be a nice guy and do not want any of my coworkers to feel fear when I ask for a PR review. Thus, when renaming
-a function or a variable to make it a little more expressive I find myself weighing the amount of changes in my commit
-related to this renaming with the expected gain in readability.
-
-#### Accept change due to different taste if it is insignificant to you
-
-Most of the time the amount in changes due to renaming are small because there are maybe two or three occurrences. This
-is a number I for myself would not raise any discussion in a PR unless it is wrong. Thus, I try avoiding potentially
-wasting time on style discussions.
-
-I accept easily that sometimes some wording bothers a dev when working with the code. But if the entire code base
-changes this should be something we should have a discussion upfront.
-
-#### Avoiding change leads to missing opportunities to make it better
-
-As stated before, having a lot of changes is something I would weigh against the gain. The problem is, the gain may only
-reveal itself, if we go through with the refactoring. We are consciously or unconsciously aware of this conflict as
-a refactoring barrier. The energy to go into uncertain refactoring may wary by personality, outside temperature, the
-taste of the coffee in the morning or any other factor which prevents us from refactoring. 
-
-Most of the time, the result is that we let it be until the day comes we have time to pick the "only-refactoring-task".
+If the file and the folder can have the same name since they are modules then we actually can go from file to folder
+back and forth in
+multiple commits while only changing the module and never the project.
 
 ## Conclusion
 
-In ths blog post I tell you in many words that we should use the same naming convention for files and folders.
-It is important to me because I do not want anyone to spend time arguing if we should write a folder in `kebab-case` a
-file in `camelCase` if it includes a single function or in `PascalCase` if we export a class. We should consider what
-convention will not stop us in generating value - Let us just name modules not files nor folders!
+In ths blog post I tell you in many words that we should use the same naming convention for files and folders. We do not
+think in files and folders, so we should not name them us such, we should name modules. In NodeJs we work with modules
+and modules have the semantic feature that they could be exchanged. We should transport this feature when writing our
+projects. We should be able to exchange a file module with a folder module without changing anything else in the
+project.
+
+Let us not waste time whether we should write a folder in `kebab-case` and a file in `camelCase` or `PascalCase`. Let us
+not prevent us from refactoring and from writing better software. Let us just name modules not files nor folders!
 
 ---
 
 [^1]: You may want to look up why e.g. the placement of the braces is also not only a matter of taste or
 style [Dangerous implications of Allman style in JavaScript](https://splunktool.com/dangerous-implications-of-allman-style-in-javascript)
 
-[^2]: Refactoring includes for me renaming stuff, splitting up stuff, reimplementing stuff, deleting stuff.... actually
-touching anything that was there before except those changes directly related to the new feature.
+[^2]: Since this is a blog I do not go into the hassle for listening and referencing my sources. But I will provide you
+with reasonable statements we can discuss in a productive way and maybe exchange sources if we see fit. And yes, I was
+lazy when writing this blog because I did not want start spending more time with searching the sources I have in mind
+than actually writing.
 
-[^3]: PR means Pull-Request (I apologize if the context was not clear enough)
+[^3]: If you, dear reader, disagree with the presented convention you most certainly disagree with my reasoning. That is
+totally fine, and I love having a discussion based on hard reasons why we should do it differently.
+
