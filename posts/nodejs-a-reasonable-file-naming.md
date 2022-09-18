@@ -11,9 +11,8 @@ ___
 
 ## TL;DR
 
-> 1) Use always the same naming convention for files and folders. I prefer kebab case because I like kebab, but you may
-     use whatever you see fit
-> 2) If we refactor a file to a folder while keeping the same name, we induce no additional changes (technical reason)
+> * Use always the same naming convention for files and folders. I prefer kebab case because I like kebab, but you may use whatever you see fit 
+> * If we refactor a file to a folder while keeping the same name, we induce no additional changes
 
 ### Do!
 
@@ -24,10 +23,10 @@ ___
 
 ### Don't Do!
 
-| Before Refactoring                               | After Refactoring                                                                                                     |              Change               |
-|:-------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------|:---------------------------------:|
-| someModuleToRefactor                             | <span style="color:red">some-module-to-refactor</span>: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul> |                yes                |
-| import { Util } from './someModuleToRefactor.ts' | import { Util } from './<span style="color:red">some-module-to-refactor</span>.ts'                                    | <span style="color:red">no</span> |
+| Before Refactoring                               | After Refactoring                                                                                                     |               Change               |
+|:-------------------------------------------------|:----------------------------------------------------------------------------------------------------------------------|:----------------------------------:|
+| someModuleToRefactor                             | <span style="color:red">some-module-to-refactor</span>: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul> |                yes                 |
+| import { Util } from './someModuleToRefactor.ts' | import { Util } from './<span style="color:red">some-module-to-refactor</span>.ts'                                    | <span style="color:red">yes</span> |
 
 ___
 
