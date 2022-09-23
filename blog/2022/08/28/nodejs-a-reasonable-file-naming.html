@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=yes, initial-scale=1.0, maximum-scale=3.0, minimum-scale=1.0">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <title>A Reasonable File Naming For Your NodeJs Project</title>
+    <meta name="description" content="Blog of a Software Engineer"/>
+    <meta name="keywords" content="blog,developer blog,engineering blog"/>
+
+    <link rel="stylesheet"
+          href="https://fonts.googleapis.com/css?family=Alegreya:400,400i|Lato:400,400i,700,900|Roboto+Mono:400,300">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/styles/shades-of-purple.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.5.1/highlight.min.js"></script>
+
+    <link rel="stylesheet" href="https://dplantera.github.io/techblog/css/normalize.css"/>
+    <link rel="stylesheet" href="https://dplantera.github.io/techblog/css/theme.css"/>
+</head>
+<body>
+<nav class="nav">
+    <div class="nav__left">
+        <a href="/techblog/">Home</a>
+        <a href="/techblog/about">About</a>
+    </div>
+    <div class="nav__right">
+        <a target="_blank" href="https://github.com/dplantera" class="link-github">GitHub</a>
+    </div>
+</nav>
+
+<article class="mar-b-7">
+    <header class="text-center">
+        <time class="mar-b-6" datetime="Sun, September 18, 2022">Sun, September 18, 2022</time>
+        <h1 class="mar-b-7">A Reasonable File Naming For Your NodeJs Project</h1>
+    </header>
+    <p>One might say that naming a variable can be the hardest thing in programming. But what about the file or
+folder where the variable lives in? This post will meet us halfway by providing reasons why we should have the same
+naming schema for files and folders.</p>
+<hr />
+<h2 id="tldr">TL;DR</h2>
+<blockquote>
+  <ul>
+  <li>Use always the same naming convention for files and folders. I prefer kebab case because I like kebab, but you may use whatever you see fit </li>
+  <li>If we refactor a file to a folder while keeping the same name, we induce no additional changes</li>
+  </ul>
+</blockquote>
+<h3 id="do">Do!</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">Before Refactoring</th>
+<th style="text-align:left;">After Refactoring</th>
+<th style="text-align:center;">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">some-module-to-refactor.ts</td>
+<td style="text-align:left;"><span style="color:green">some-module-to-refactor</span>: <ul><li>index.ts</li><li>important-functions.ts</li></ul></td>
+<td style="text-align:center;">yes</td>
+</tr>
+<tr>
+<td style="text-align:left;">import { Util } from './some-module-to-refactor.ts'</td>
+<td style="text-align:left;">import { Util } from './<span style="color:green">some-module-to-refactor</span>.ts'</td>
+<td style="text-align:center;"><span style="color:green">no</span></td>
+</tr>
+</tbody>
+</table>
+<h3 id="dontdo">Don't Do!</h3>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">Before Refactoring</th>
+<th style="text-align:left;">After Refactoring</th>
+<th style="text-align:center;">Change</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">someModuleToRefactor</td>
+<td style="text-align:left;"><span style="color:red">some-module-to-refactor</span>: <ul><li>index.ts</li><li>importantDomainFunction.ts</li></ul></td>
+<td style="text-align:center;">yes</td>
+</tr>
+<tr>
+<td style="text-align:left;">import { Util } from './someModuleToRefactor.ts'</td>
+<td style="text-align:left;">import { Util } from './<span style="color:red">some-module-to-refactor</span>.ts'</td>
+<td style="text-align:center;"><span style="color:red">yes</span></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="introduction">Introduction</h2>
+<p>As a programmer we often rely on naming conventions because as long as it works for everyone we are safe to proceed.
+That is totally fine if the convention works in a sense it won't make any troubles now or any
+time in the future during development, refactoring or debugging. Hence, a convention must not have a negative impact
+from a practical or technical perspective like readability (practical) or in Vanilla JS e.g. the placement of braces (
+technical) <a href="#footnote-1"><sup>[1]</sup></a>.</p>
+<p>I've worked about four years with NodeJs projects and wondered often if there is a technical reason in how
+we name files and folders. Until now, I can not say there actually is any single commonly accepted way for
+naming stuff in NodeJs projects. There are a lot and most of them relate to practical reasons like "filename will
+express…something"  e.g. "whether there is a class or a function in a file exported". Yet, I haven't found any
+technical reason why we should apply a particular naming convention on files or folders.[^2]</p>
+<p>Coming from e.g. Java 8 you most certainly have learned that you need to name a file like you've named your class inside
+the file because the compiler would yell to you otherwise.
+In NodeJs there is no compiler that enforces naming conventions. Maybe there are linter for that, but you need to know
+the rule and enable it only for someone else to turn it off because he or she has a different taste.</p>
+<p>My point is, I do not want to discuss taste or style, I want to discuss how to avoid issues, enhancing
+DX or productivity for everyone by providing a naming convention through technical reasoning.[^3]</p>
+<h2 id="namemodulesnotfilesorfolders">Name Modules not Files or Folders</h2>
+<p>The title of this section already tells us we should name modules not files or folders. I'm convinced that if we start
+naming modules instead of files or folders then we will take a step towards a natural naming convention and style.</p>
+<p>In the following I will elaborate what I mean by naming modules and why this should be considered as a good reason. Yet,
+I let the naming schema which you should apply open to your taste, for now.</p>
+<h3 id="reason1modulesarefilesandfolders">Reason 1: Modules are Files and Folders</h3>
+<p>In NodeJs every file which exports something is considered a module. Every folder which may contain an index.js (
+index.ts) is also considered a module. This means a module may be a file or a folder.</p>
+<p>Since a file and a folder can be the same thing why should we apply different naming conventions?</p>
+<h3 id="reason2wedonotthinkinfilesorfolders">Reason 2: We do not think in Files or Folders</h3>
+<p>I keep this reason short because there are so many streams and terminologies for designing and architecture a service
+that I don't want to touch with this simple topic of naming conventions. This is something we easily can test for our
+self.</p>
+<p>If we model or explain how our software system is build, do we would use the terms files or folders? Are we importing
+from files in NodeJs?</p>
+<h3 id="reason3lowerbarriesforrefactoring">Reason 3: Lower Barries for Refactoring</h3>
+<p>When treating a file and a folder as a module, and they have the same naming pattern, then we can make a folder from a
+file without changing any references to that file.
+Hence, we are able to refactor a file (module) into a folder (module) without inducing any other change in the project.</p>
+<p>[The absence of additional changes lowers the barrier for refactoring and enables us in return to increase the quality
+of a module and with it of the system.](#Technical and practical impact of different naming conventions for files and folders)</p>
+<h2 id="impactofdifferentnamingconventionsforfilesandfolders">Impact of different naming conventions for files and folders</h2>
+<p>Reason 3 stated that naming files and folders the same way, will lower barriers for refactoring by reducing the amount
+of induced additional change. Let us define additional change as any change which would be a side
+effect of the actively applied change like updating file references.
+However, it does not state why additional change can become such an issue that we would avoid a refactoring.</p>
+<p>We have certainly come across a file which is large enough where we can't see anymore what actually happens, but not
+large enough, anyone would have an issue if we extend it with another function. Be honest, we both would just put the
+function in the file. And it makes sense in a first iteration to do so, the question is what happens next? Would we
+refactor it? What would hold us from it?</p>
+<p>There are <em>barriers for refactoring</em> and one of it is <em>additional change</em>. If we change a filename then in some cases we
+change the whole project because of updated file references some refactoring tool applied for us. Most certainly we
+would work on a feature or bug when we think of refactoring. If we induce changes across the project which are totally
+unrelated to the thing we are actually doing, we consciously or unconsciously tend not to go through with the
+refactoring. Of course this would not matter if a refactoring would become necessary to implement or fix something but
+maybe raise some reflections why this become necessary.</p>
+<p>Yet, refactoring is one of the most important tasks in programming and general speaking in writing. There is no
+masterpiece text when an author writes it down the first time. A masterpiece text is developed mostly by
+multiple people. Thus, refactoring enables us to achieve masterpieces or at least better and reliable software.</p>
+<p>But refactoring is a skill which is, thanks to our tools, cheap and easy to apply but really hard to master. What is
+hard to learn is to know when it will be necessary, when it will bring as value or the hardest thing ever: when to stop.
+We can not force achieving mastery in refactoring, but we can and should eliminate every barrier which will prevent us
+from refactoring. Anything preventing us from refactoring would prevent us from writing better software.</p>
+<p>Modularize and split up concerns in a folder to see better what is going on in a file is a refactoring worth to proceed.
+This enables us e.g. to refactor out concerns in another module and reduce complexity which again enables us to see
+better what's going, refactor out and so on and so forth.</p>
+<p>If the file and the folder can have the same name since they are modules then we actually can go from file to folder
+back and forth in
+multiple commits while only changing the module and never the project.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In ths blog post I tell you in many words that we should use the same naming convention for files and folders. We do not
+think in files and folders, so we should not name them us such, we should name modules. In NodeJs we work with modules
+and modules have the semantic feature that they could be exchanged. We should transport this feature when writing our
+projects. We should be able to exchange a file module with a folder module without changing anything else in the
+project.</p>
+<p>Let us not waste time whether we should write a folder in <code>kebab-case</code> and a file in <code>camelCase</code> or <code>PascalCase</code>. Let us
+not prevent us from refactoring and from writing better software. Let us just name modules not files nor folders!</p>
+<hr />
+<p><small class="footnote" id="footnote-1"><a href="#footnote-1"><sup>[1]</sup></a>: You may want to look up why e.g. the placement of the braces is also not only a matter of taste or
+style <a href="https://splunktool.com/dangerous-implications-of-allman-style-in-javascript">Dangerous implications of Allman style in JavaScript</a></small></p>
+<p><small class="footnote" id="footnote-2"><a href="#footnote-2"><sup>[2]</sup></a>: Since this is a blog I do not go into the hassle for listening and referencing my sources. But I will provide you
+with reasonable statements we can discuss in a productive way and maybe exchange sources if we see fit. And yes, I was
+lazy when writing this blog because I did not want start spending more time with searching the sources I have in mind
+than actually writing.</small></p>
+<p><small class="footnote" id="footnote-3"><a href="#footnote-3"><sup>[3]</sup></a>: If you, dear reader, disagree with the presented convention you most certainly disagree with my reasoning. That is
+totally fine, and I love having a discussion based on hard reasons why we should do it differently.</small></p>
+</article>
+
+<footer class="text-center mar-tb-6">
+    © 2022 dplantera, unless otherwise stated.
+</footer>
+
+<script>hljs.highlightAll();</script>
+</body>
+</html>
+
